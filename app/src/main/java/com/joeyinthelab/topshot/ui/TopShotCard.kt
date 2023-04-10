@@ -17,11 +17,11 @@ import coil.compose.AsyncImage
 fun TopShotCard(
     momentFlowId: String,
     momentFlowUrl: String,
-    onClick: () -> Unit,
+    onClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Card(
-        onClick = onClick,
+        onClick = { onClick(momentFlowId) },
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
             containerColor =  MaterialTheme.colorScheme.surfaceVariant,

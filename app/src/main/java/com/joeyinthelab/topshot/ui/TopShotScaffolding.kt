@@ -17,11 +17,20 @@ import androidx.compose.ui.graphics.Color
 @Composable
 fun TopShotScaffolding(
 ) {
-    val showDialog = remember { mutableStateOf(false) }
+    val showSettingsDialog = remember { mutableStateOf(false) }
+    val topShotMomentId = remember { mutableStateOf("") }
+    val showTopShotDialog = remember { mutableStateOf(false) }
 
-    if (showDialog.value) {
+    if (showSettingsDialog.value) {
         SettingsDialog(
-            onDismiss = { showDialog.value = false },
+            onDismiss = { showSettingsDialog.value = false },
+        )
+    }
+
+    if (showTopShotDialog.value) {
+        TopShotDialog(
+            momentFlowId = topShotMomentId.value,
+            onDismiss = { showTopShotDialog.value = false },
         )
     }
 
@@ -38,7 +47,7 @@ fun TopShotScaffolding(
             CenterAlignedTopAppBar(
                 title = { Text(text = "Your Top Shot Moments") },
                 actions = {
-                    IconButton(onClick = { showDialog.value = true }) {
+                    IconButton(onClick = { showSettingsDialog.value = true }) {
                         Icon(
                             imageVector = Icons.Rounded.Settings,
                             contentDescription = "Settings",
@@ -51,7 +60,12 @@ fun TopShotScaffolding(
                 ),
             )
 
-            TopShotCollection(onMomentClick = {})
+            TopShotCollection(onMomentClick = { momentFlowId ->
+                run {
+                    topShotMomentId.value = momentFlowId
+                    showTopShotDialog.value = true
+                }
+            })
         }
     }
 }

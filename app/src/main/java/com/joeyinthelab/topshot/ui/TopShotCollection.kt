@@ -19,7 +19,7 @@ import com.joeyinthelab.topshot.TopShotCollectionViewModel
 
 @Composable
 fun TopShotCollection(
-    onMomentClick: () -> Unit,
+    onMomentClick: (String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: TopShotCollectionViewModel = viewModel(),
 ) {
