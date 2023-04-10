@@ -15,7 +15,7 @@ import androidx.compose.ui.graphics.Color
     ExperimentalLayoutApi::class,
 )
 @Composable
-fun TopShotScaffolding(
+fun TopShotApp(
 ) {
     val showSettingsDialog = remember { mutableStateOf(false) }
     val topShotMomentId = remember { mutableStateOf("") }
@@ -37,7 +37,7 @@ fun TopShotScaffolding(
     Scaffold(
         containerColor = Color.Transparent,
         contentColor = MaterialTheme.colorScheme.onBackground,
-        contentWindowInsets = WindowInsets(0, 0, 0, 0),
+        //contentWindowInsets = WindowInsets(0, 0, 0, 0),
     ) { padding ->
         Column {
             Modifier

@@ -21,7 +21,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.joeyinthelab.topshot.MainActivityUiState.Loading
 import com.joeyinthelab.topshot.MainActivityUiState.Success
-import com.joeyinthelab.topshot.ui.TopShotScaffolding
+import com.joeyinthelab.topshot.ui.TopShotApp
 import com.joeyinthelab.topshot.ui.theme.TopShotSampleTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -73,7 +73,7 @@ class MainActivity : ComponentActivity() {
 				Surface(
 					modifier = Modifier.fillMaxSize()
 				) {
-					TopShotScaffolding()
+					TopShotApp()
 				}
 			}
 		}

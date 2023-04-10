@@ -3,7 +3,7 @@
 	<style name="Theme.TopShotSample" parent="android:Theme.Material.Light.NoActionBar" />
 
 	<style name="Theme.TopShotSample.Splash" parent="Theme.SplashScreen">
-		<item name="windowSplashScreenBackground">@color/white</item>
+		<item name="windowSplashScreenBackground">@color/splash_background</item>
 		<item name="windowSplashScreenAnimatedIcon">@drawable/baseline_sports_basketball_24</item>
 		<item name="windowSplashScreenAnimationDuration">1000</item>
 		<item name="postSplashScreenTheme">@style/Theme.TopShotSample</item>
