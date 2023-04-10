@@ -5,6 +5,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
@@ -15,6 +17,14 @@ import androidx.compose.ui.graphics.Color
 @Composable
 fun TopShotScaffolding(
 ) {
+    val showDialog = remember { mutableStateOf(false) }
+
+    if (showDialog.value) {
+        SettingsDialog(
+            onDismiss = { showDialog.value = false },
+        )
+    }
+
     Scaffold(
         containerColor = Color.Transparent,
         contentColor = MaterialTheme.colorScheme.onBackground,
@@ -28,7 +38,7 @@ fun TopShotScaffolding(
             CenterAlignedTopAppBar(
                 title = { Text(text = "Your Top Shot Moments") },
                 actions = {
-                    IconButton(onClick = {}) {
+                    IconButton(onClick = { showDialog.value = true }) {
                         Icon(
                             imageVector = Icons.Rounded.Settings,
                             contentDescription = "Settings",
