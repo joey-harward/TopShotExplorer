@@ -1,0 +1,12 @@
+<resources>
+	<string name="app_name">TopShot Explorer</string>
+
+	<string name="testnet_api">access.devnet.nodes.onflow.org</string>
+	<string name="mainnet_api">access.mainnet.nodes.onflow.org</string>
+
+	<string name="topshot_testnet">0x877931736ee77cff</string>
+	<string name="topshot_mainnet">0x0b2a3299cc857e29</string>
+
+	<string name="testnet_account">0x0f09ae6125797e4a</string>
+	<string name="mainnet_account">0xcbbe7e57a0bb249f</string>
+</resources>
