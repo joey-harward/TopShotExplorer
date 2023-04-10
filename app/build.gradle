@@ -57,6 +57,8 @@ dependencies {
 	implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
 	implementation 'androidx.compose.material3:material3:1.1.0-beta02'
 	implementation 'androidx.core:core-splashscreen:1.0.0'
+	implementation 'androidx.media3:media3-exoplayer:1.0.0'
+	implementation "androidx.media3:media3-ui:1.0.0"
 	implementation 'com.google.accompanist:accompanist-systemuicontroller:0.31.0-alpha'
 	implementation "io.coil-kt:coil:$coil_version"
 	implementation "io.coil-kt:coil-compose:$coil_version"
