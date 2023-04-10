@@ -38,7 +38,7 @@ fun TopShotCollection(
             if (collection.isNotEmpty()) {
                 LazyColumn {
                     items(collection.toList()) { momentFlowId ->
-                        val momentFlowUrl = "https://assets.nbatopshot.com/media/$momentFlowId/image"
+                        val momentFlowUrl = "https://assets.nbatopshot.com/media/$momentFlowId/transparent"
                         TopShotCard(
                             momentFlowId = momentFlowId,
                             momentFlowUrl = momentFlowUrl,

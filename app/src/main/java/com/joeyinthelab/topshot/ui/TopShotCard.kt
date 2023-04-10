@@ -1,10 +1,11 @@
 package com.joeyinthelab.topshot.ui
 
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
@@ -24,7 +25,7 @@ fun TopShotCard(
         onClick = { onClick(momentFlowId) },
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
-            containerColor =  MaterialTheme.colorScheme.surfaceVariant,
+            containerColor =  MaterialTheme.colorScheme.inversePrimary,
         ),
         modifier = modifier.fillMaxSize()
     ) {
@@ -35,10 +36,18 @@ fun TopShotCard(
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold,
         )
-        AsyncImage(
-            contentScale = ContentScale.Fit,
-            model = momentFlowUrl,
-            contentDescription = null
-        )
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(350.dp)
+                .background(MaterialTheme.colorScheme.surfaceVariant)
+        ) {
+            AsyncImage(
+                contentScale = ContentScale.Fit,
+                model = momentFlowUrl,
+                contentDescription = null
+            )
+        }
     }
 }
