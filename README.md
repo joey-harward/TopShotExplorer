@@ -1,5 +1,5 @@
 # Top Shot Explorer
-This is a sample program to highlight some of Dapper's [Top Shot API](https://developers.nbatopshot.com/docs/Introduction).
+This is a sample app to highlight interactions with Dapper's [Top Shot API](https://developers.nbatopshot.com/docs/Introduction).
 
 This app adheres to Android best practices including:
 - Compose
@@ -11,9 +11,10 @@ This app adheres to Android best practices including:
 - Unit Testing
 
 ### TODOs
-- [x] Show collection for an account
-- [x] Show moment video in dialog
-- [ ] Update network and account address in settings
+- [x] Show a collection for a specified account
+- [x] Show a moment video pop up
+- [ ] Add ability to update network and account address in settings modal
+- [ ] Show other moment details (like player name, stats)
 - [ ] Use ChatGPT for Cadence script generation
 
 ### Screenshots
