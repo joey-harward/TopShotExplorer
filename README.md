@@ -7,6 +7,7 @@ Using Android best practices and latest tech, here are some highlights:
 - State Flow
 - Material3
 - Coil
+- Media3
 
 ### TODOs
 - [x] Show collection for an account

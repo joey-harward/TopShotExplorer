@@ -5,6 +5,8 @@ import coil.ImageLoader
 import coil.decode.VideoFrameDecoder
 import coil.util.DebugLogger
 import com.joeyinthelab.topshot.BuildConfig
+import com.joeyinthelab.topshot.R
+import com.nftco.flow.sdk.FlowAccessApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,6 +15,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.Call
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -48,4 +51,22 @@ object NetworkModule {
             }
         }
         .build()
+
+    @Provides
+    @Singleton
+    @Named("Testnet")
+    fun flowTestnetApi(
+        @ApplicationContext application: Context,
+    ): FlowAccessApi = com.nftco.flow.sdk.Flow.newAccessApi(
+        application.getString(R.string.testnet_api), 9000
+    )
+
+    @Provides
+    @Singleton
+    @Named("Mainnet")
+    fun flowMainnetApi(
+        @ApplicationContext application: Context,
+    ): FlowAccessApi = com.nftco.flow.sdk.Flow.newAccessApi(
+        application.getString(R.string.mainnet_api), 9000
+    )
 }

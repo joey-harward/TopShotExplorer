@@ -1,27 +1,40 @@
 package com.joeyinthelab.topshot.repository
 
+import android.content.Context
+import com.joeyinthelab.topshot.R
 import com.joeyinthelab.topshot.model.AppData
-import kotlinx.coroutines.delay
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class OfflineAppDataRepository @Inject constructor() : AppDataRepository {
+class OfflineAppDataRepository @Inject constructor(
+    @ApplicationContext private val context: Context
+) : AppDataRepository {
+    // simulating app data in prefs
+    private val isTestnet = false
+
+    private val accountAddress =
+        if (isTestnet)
+            context.getString(R.string.testnet_account)
+        else
+            context.getString(R.string.mainnet_account)
+
     override val appData: Flow<AppData> = flow {
-        // simulate getting app data from prefs
+        // simulate delay getting app data from prefs
         //delay(2000)
 
         emit(AppData(
-            isTestnet = false,
-            accountAddress = "0xcbbe7e57a0bb249f"
+            isTestnet = isTestnet,
+            accountAddress = accountAddress
         ))
     }
 
     override suspend fun setIsTestnet(isTestnet: Boolean) {
-        //setIsTestnet(isTestnet)
+        // TODO: save isTestnet variable to prefs
     }
 
     override suspend fun setAccountAddress(address: String) {
-        //setAccountAddress(address)
+        // TODO: save account address to prefs
     }
 }
