@@ -15,7 +15,7 @@ This app adheres to Android best practices including:
 - [x] Show a moment video pop up
 - [ ] Add ability to update network and account address in settings modal
 - [ ] Show other moment details (like player name, stats)
-- [ ] Use ChatGPT for Cadence script generation
+- [ ] Use [OpenAI API](https://platform.openai.com/docs/api-reference) to organically generate Top Shot Cadence scripts
 
 ### Screenshots
 https://user-images.githubusercontent.com/432554/230983739-93df4e69-1ff4-4eef-b574-d41a06961554.mp4
