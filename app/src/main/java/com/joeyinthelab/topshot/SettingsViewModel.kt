@@ -1,5 +1,6 @@
 package com.joeyinthelab.topshot
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.joeyinthelab.topshot.repository.AppDataRepository
@@ -18,6 +19,7 @@ class SettingsViewModel @Inject constructor(
     val settingsUiState: StateFlow<SettingsUiState> =
         appDataRepository.appData
             .map { appData ->
+                Log.d("settingsUiState", appData.isTestnet.toString())
                 SettingsUiState.Success(
                     settings = EditableAppData(
                         isTestnet = appData.isTestnet,

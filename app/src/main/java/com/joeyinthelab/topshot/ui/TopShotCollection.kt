@@ -23,7 +23,7 @@ fun TopShotCollection(
     modifier: Modifier = Modifier,
     viewModel: TopShotCollectionViewModel = viewModel(),
 ) {
-    val collectionState by viewModel.collections.collectAsStateWithLifecycle()
+    val collectionState by viewModel.collectionUiState.collectAsStateWithLifecycle()
     when (collectionState) {
         Loading -> {
             Box(

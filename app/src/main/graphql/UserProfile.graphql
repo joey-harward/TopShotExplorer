@@ -1,0 +1,10 @@
+query UserProfile($username: String!) {
+    getUserProfileByUsername(
+        input: {
+            username: $username
+        }) {
+        publicInfo {
+            flowAddress
+        }
+    }
+}

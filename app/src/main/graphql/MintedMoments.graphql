@@ -1,0 +1,10 @@
+query MintedMoments($momentIds: [ID!]!) {
+    getMintedMoments(
+        input: {
+            momentIds: $momentIds
+        }) {
+        data {
+            flowId
+        }
+    }
+}

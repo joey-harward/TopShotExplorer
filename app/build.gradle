@@ -3,6 +3,7 @@ plugins {
 	id 'org.jetbrains.kotlin.android'
 	id 'kotlin-kapt'
 	id 'com.google.dagger.hilt.android'
+	id 'com.apollographql.apollo3' version '3.8.0'
 }
 
 android {
@@ -65,6 +66,7 @@ dependencies {
 	implementation "io.coil-kt:coil-video:$coil_version"
 	implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
 	implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+	implementation("com.apollographql.apollo3:apollo-runtime:3.8.0")
 
 	// Flow
 	api 'com.nftco:flow-jvm-sdk:0.7.3'
@@ -85,4 +87,10 @@ dependencies {
 
 kapt {
 	correctErrorTypes true
+}
+
+apollo {
+	service("service") {
+		packageName.set("com.joeyinthelab.topshot")
+	}
 }
