@@ -11,6 +11,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
@@ -29,13 +30,17 @@ fun SettingsDialog(
     val settingsUiState by viewModel.settingsUiState.collectAsStateWithLifecycle()
     val configuration = LocalConfiguration.current
 
-    val username = remember { mutableStateOf("") }
+    var usernameInitialized by remember { mutableStateOf(false) }
+    var username by remember { mutableStateOf("") }
+    if (username.isNotEmpty()) {
+        usernameInitialized = true
+    }
 
     AlertDialog(
         properties = DialogProperties(usePlatformDefaultWidth = false),
         modifier = Modifier.widthIn(max = configuration.screenWidthDp.dp - 80.dp),
         onDismissRequest = {
-            viewModel.updateUsername(username.value)
+            viewModel.updateUsername(username)
             onDismiss()
         },
         title = {
@@ -58,10 +63,10 @@ fun SettingsDialog(
                     is SettingsUiState.Success -> {
                         SettingsDialogSectionTitle(text = "Account Info")
                         OutlinedTextField(
-                            value = username.value.ifEmpty {
+                            value = if (usernameInitialized) { username } else {
                                 (settingsUiState as SettingsUiState.Success).settings.username
                             },
-                            onValueChange = { s -> username.value = s },
+                            onValueChange = { s -> username = s },
                             label = { Text("Username") }
                         )
                     }
@@ -77,7 +82,7 @@ fun SettingsDialog(
                 modifier = Modifier
                     .padding(horizontal = 8.dp)
                     .clickable {
-                        viewModel.updateUsername(username.value)
+                        viewModel.updateUsername(username)
                         onDismiss()
                     },
             )

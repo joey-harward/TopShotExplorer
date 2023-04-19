@@ -33,7 +33,7 @@ class SettingsViewModel @Inject constructor(
     fun updateUsername(username: String) {
         if (username.isNotEmpty()) {
             viewModelScope.launch {
-                appDataRepository.setUsername(username)
+                appDataRepository.setUsername(username.trim())
             }
         }
     }
