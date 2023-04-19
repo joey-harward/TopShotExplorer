@@ -8,7 +8,6 @@ import com.apollographql.apollo3.ApolloClient
 import com.apollographql.apollo3.network.okHttpClient
 import com.joeyinthelab.topshot.BuildConfig
 import com.joeyinthelab.topshot.R
-import com.nftco.flow.sdk.FlowAccessApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,7 +17,6 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
-import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -55,24 +53,6 @@ object NetworkModule {
             }
         }
         .build()
-
-    @Provides
-    @Singleton
-    @Named("Testnet")
-    fun flowTestnetApi(
-        @ApplicationContext application: Context,
-    ): FlowAccessApi = com.nftco.flow.sdk.Flow.newAccessApi(
-        application.getString(R.string.testnet_api), 9000
-    )
-
-    @Provides
-    @Singleton
-    @Named("Mainnet")
-    fun flowMainnetApi(
-        @ApplicationContext application: Context,
-    ): FlowAccessApi = com.nftco.flow.sdk.Flow.newAccessApi(
-        application.getString(R.string.mainnet_api), 9000
-    )
 
     @Provides
     @Singleton

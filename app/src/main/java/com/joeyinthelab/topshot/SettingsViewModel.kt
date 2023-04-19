@@ -1,6 +1,5 @@
 package com.joeyinthelab.topshot
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.joeyinthelab.topshot.repository.AppDataRepository
@@ -19,11 +18,9 @@ class SettingsViewModel @Inject constructor(
     val settingsUiState: StateFlow<SettingsUiState> =
         appDataRepository.appData
             .map { appData ->
-                Log.d("settingsUiState", appData.isTestnet.toString())
                 SettingsUiState.Success(
                     settings = EditableAppData(
-                        isTestnet = appData.isTestnet,
-                        accountAddress = appData.accountAddress,
+                        username = appData.username,
                     ),
                 )
             }
@@ -33,22 +30,17 @@ class SettingsViewModel @Inject constructor(
                 initialValue = SettingsUiState.Loading,
             )
 
-    fun updateIsTestnet(isTestnet: Boolean) {
-        viewModelScope.launch {
-            appDataRepository.setIsTestnet(isTestnet)
-        }
-    }
-
-    fun updateAccountAddress(accountAddress: String) {
-        viewModelScope.launch {
-            appDataRepository.setAccountAddress(accountAddress)
+    fun updateUsername(username: String) {
+        if (username.isNotEmpty()) {
+            viewModelScope.launch {
+                appDataRepository.setUsername(username)
+            }
         }
     }
 }
 
 data class EditableAppData(
-    val isTestnet: Boolean,
-    val accountAddress: String,
+    val username: String
 )
 
 sealed interface SettingsUiState {

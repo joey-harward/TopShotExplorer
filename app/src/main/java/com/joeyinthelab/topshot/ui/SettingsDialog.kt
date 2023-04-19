@@ -4,12 +4,13 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
-import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
@@ -17,7 +18,6 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.joeyinthelab.topshot.EditableAppData
 import com.joeyinthelab.topshot.SettingsUiState
 import com.joeyinthelab.topshot.SettingsViewModel
 
@@ -27,27 +27,17 @@ fun SettingsDialog(
     viewModel: SettingsViewModel = viewModel(),
 ) {
     val settingsUiState by viewModel.settingsUiState.collectAsStateWithLifecycle()
-    SettingsDialog(
-        onDismiss = onDismiss,
-        settingsUiState = settingsUiState,
-        onChangeIsTestnet = viewModel::updateIsTestnet,
-        onChangeAccountAddress = viewModel::updateAccountAddress,
-    )
-}
-
-@Composable
-fun SettingsDialog(
-    onDismiss: () -> Unit,
-    settingsUiState: SettingsUiState,
-    onChangeIsTestnet: (isTestnet: Boolean) -> Unit,
-    onChangeAccountAddress: (accountAddress: String) -> Unit,
-) {
     val configuration = LocalConfiguration.current
+
+    val username = remember { mutableStateOf("") }
 
     AlertDialog(
         properties = DialogProperties(usePlatformDefaultWidth = false),
         modifier = Modifier.widthIn(max = configuration.screenWidthDp.dp - 80.dp),
-        onDismissRequest = { onDismiss() },
+        onDismissRequest = {
+            viewModel.updateUsername(username.value)
+            onDismiss()
+        },
         title = {
             Text(
                 text = "Settings",
@@ -66,10 +56,13 @@ fun SettingsDialog(
                     }
 
                     is SettingsUiState.Success -> {
-                        SettingsPanel(
-                            settings = settingsUiState.settings,
-                            onChangeIsTestnet = onChangeIsTestnet,
-                            onChangeAccountAddress = onChangeAccountAddress,
+                        SettingsDialogSectionTitle(text = "Account Info")
+                        OutlinedTextField(
+                            value = username.value.ifEmpty {
+                                (settingsUiState as SettingsUiState.Success).settings.username
+                            },
+                            onValueChange = { s -> username.value = s },
+                            label = { Text("Username") }
                         )
                     }
                 }
@@ -83,36 +76,12 @@ fun SettingsDialog(
                 color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier
                     .padding(horizontal = 8.dp)
-                    .clickable { onDismiss() },
+                    .clickable {
+                        viewModel.updateUsername(username.value)
+                        onDismiss()
+                    },
             )
         },
-    )
-}
-
-@Composable
-private fun SettingsPanel(
-    settings: EditableAppData,
-    onChangeIsTestnet: (isTestnet: Boolean) -> Unit,
-    onChangeAccountAddress: (accountAddress: String) -> Unit,
-) {
-    SettingsDialogSectionTitle(text = "Network")
-    Column(Modifier.selectableGroup()) {
-        SettingsDialogThemeChooserRow(
-            text = "Testnet",
-            selected = settings.isTestnet,
-            onClick = { onChangeIsTestnet(true) },
-        )
-        SettingsDialogThemeChooserRow(
-            text = "Mainnet",
-            selected = !settings.isTestnet,
-            onClick = { onChangeIsTestnet(false) },
-        )
-    }
-    SettingsDialogSectionTitle(text = "Account")
-    OutlinedTextField(
-        value = settings.accountAddress,
-        onValueChange = { accountAddress -> onChangeAccountAddress(accountAddress) },
-        label = { Text("Address") }
     )
 }
 

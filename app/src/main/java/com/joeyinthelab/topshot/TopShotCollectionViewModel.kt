@@ -12,15 +12,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TopShotCollectionViewModel @Inject constructor(
-    appDataRepository: AppDataRepository,
-    collectionRepository: TopShotCollectionRepository,
+    private val appDataRepository: AppDataRepository,
+    private val collectionRepository: TopShotCollectionRepository,
 ) : ViewModel() {
-    val collectionUiState: StateFlow<CollectionUiState> =
-        appDataRepository.appData
-            .map { appData ->
-                val collection = collectionRepository.getUserMoments(appData.accountAddress)
-                Success(collection)
-        }.stateIn(
+val collectionUiState: StateFlow<CollectionUiState> =
+    appDataRepository.appData
+        .map {
+            val collection = collectionRepository.getUserMoments(it.username)
+            Success(collection)
+        }
+        .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = Loading,
