@@ -1,4 +1,4 @@
-package com.joeyinthelab.topshot.ui
+package com.joeyinthelab.topshot.ui.dialog
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -18,14 +18,14 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.joeyinthelab.topshot.SettingsUiState
 import com.joeyinthelab.topshot.SettingsViewModel
 
 @Composable
 fun SettingsDialog(
     onDismiss: () -> Unit,
-    viewModel: SettingsViewModel = viewModel(),
+    viewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val settingsUiState by viewModel.settingsUiState.collectAsStateWithLifecycle()
     val configuration = LocalConfiguration.current

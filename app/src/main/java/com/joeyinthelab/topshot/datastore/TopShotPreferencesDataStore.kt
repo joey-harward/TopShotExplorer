@@ -2,7 +2,6 @@ package com.joeyinthelab.topshot.datastore
 
 import android.content.Context
 import androidx.datastore.core.DataStore
-import com.joeyinthelab.topshot.R
 import com.joeyinthelab.topshot.UserPreferences
 import com.joeyinthelab.topshot.model.AppData
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -16,7 +15,7 @@ class TopShotPreferencesDataStore @Inject constructor(
 	val appData = userPreferences.data
 		.map {
 			AppData(
-				username = it.username ?: context.getString(R.string.default_username)
+				username = it.username
 			)
 		}
 

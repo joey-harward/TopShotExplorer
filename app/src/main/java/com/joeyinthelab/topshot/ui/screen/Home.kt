@@ -1,4 +1,4 @@
-package com.joeyinthelab.topshot.ui
+package com.joeyinthelab.topshot.ui.screen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -9,13 +9,18 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.navigation.NavHostController
+import com.joeyinthelab.topshot.ui.dialog.SettingsDialog
+import com.joeyinthelab.topshot.ui.component.MomentCollection
+import com.joeyinthelab.topshot.ui.dialog.MomentVideoDialog
 
 @OptIn(
     ExperimentalMaterial3Api::class,
     ExperimentalLayoutApi::class,
 )
 @Composable
-fun TopShotApp(
+fun Home(
+    navController: NavHostController,
 ) {
     val showSettingsDialog = remember { mutableStateOf(false) }
     val topShotMomentId = remember { mutableStateOf("") }
@@ -28,7 +33,7 @@ fun TopShotApp(
     }
 
     if (showTopShotDialog.value) {
-        TopShotDialog(
+        MomentVideoDialog(
             momentFlowId = topShotMomentId.value,
             onDismiss = { showTopShotDialog.value = false },
         )
@@ -60,7 +65,7 @@ fun TopShotApp(
                 ),
             )
 
-            TopShotCollection(onMomentClick = { momentFlowId ->
+            MomentCollection(onMomentClick = { momentFlowId ->
                 run {
                     topShotMomentId.value = momentFlowId
                     showTopShotDialog.value = true

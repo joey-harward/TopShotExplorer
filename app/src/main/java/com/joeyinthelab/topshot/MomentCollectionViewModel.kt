@@ -5,20 +5,20 @@ import androidx.lifecycle.viewModelScope
 import com.joeyinthelab.topshot.CollectionUiState.Loading
 import com.joeyinthelab.topshot.CollectionUiState.Success
 import com.joeyinthelab.topshot.repository.AppDataRepository
-import com.joeyinthelab.topshot.repository.TopShotCollectionRepository
+import com.joeyinthelab.topshot.repository.TopShotRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @HiltViewModel
-class TopShotCollectionViewModel @Inject constructor(
-    private val appDataRepository: AppDataRepository,
-    private val collectionRepository: TopShotCollectionRepository,
+class MomentCollectionViewModel @Inject constructor(
+    appDataRepository: AppDataRepository,
+    private val topShotRepository: TopShotRepository,
 ) : ViewModel() {
 val collectionUiState: StateFlow<CollectionUiState> =
     appDataRepository.appData
         .map {
-            val collection = collectionRepository.getUserMoments(it.username)
+            val collection = topShotRepository.getUserMoments(it.username)
             Success(collection)
         }
         .stateIn(

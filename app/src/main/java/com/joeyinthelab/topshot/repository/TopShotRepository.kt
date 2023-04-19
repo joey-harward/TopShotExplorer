@@ -7,7 +7,7 @@ import com.joeyinthelab.topshot.MintedMomentsQuery
 import com.joeyinthelab.topshot.UserProfileQuery
 import javax.inject.Inject
 
-class TopShotCollectionRepository @Inject constructor(
+class TopShotRepository @Inject constructor(
     private val apolloClient: ApolloClient,
 ) {
     suspend fun getUserMoments(username: String): List<String> {
