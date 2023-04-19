@@ -37,11 +37,9 @@ fun MomentCollection(
             val collection = (collectionState as Success).collection
             if (collection.isNotEmpty()) {
                 LazyColumn {
-                    items(collection.toList()) { momentFlowId ->
-                        val momentFlowUrl = "https://assets.nbatopshot.com/media/$momentFlowId/transparent"
+                    items(collection.toList()) { momentNFT ->
                         MomentCard(
-                            momentFlowId = momentFlowId,
-                            momentFlowUrl = momentFlowUrl,
+                            momentNFT = momentNFT,
                             onClick = onMomentClick,
                             modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
                         )

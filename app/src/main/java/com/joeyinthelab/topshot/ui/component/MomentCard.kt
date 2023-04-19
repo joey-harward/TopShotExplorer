@@ -12,17 +12,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.joeyinthelab.topshot.model.MomentNFT
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MomentCard(
-    momentFlowId: String,
-    momentFlowUrl: String,
+    momentNFT: MomentNFT,
     onClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Card(
-        onClick = { onClick(momentFlowId) },
+        onClick = { onClick(momentNFT.flowId) },
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
             containerColor =  MaterialTheme.colorScheme.inversePrimary,
@@ -31,7 +31,7 @@ fun MomentCard(
     ) {
         Text(
             modifier = modifier.fillMaxWidth(),
-            text = momentFlowId,
+            text = momentNFT.flowId,
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold,
@@ -45,9 +45,24 @@ fun MomentCard(
         ) {
             AsyncImage(
                 contentScale = ContentScale.Fit,
-                model = momentFlowUrl,
+                model = "${momentNFT.assetPathPrefix}Hero_2880_2880_Black.jpg?quality=60&width=480",
                 contentDescription = null
             )
         }
+        Text(
+            modifier = modifier.fillMaxWidth(),
+            text = "tier: ${momentNFT.tier}",
+            style = MaterialTheme.typography.titleMedium,
+        )
+        Text(
+            modifier = modifier.fillMaxWidth(),
+            text = "serial number: ${momentNFT.flowSerialNumber}",
+            style = MaterialTheme.typography.titleMedium,
+        )
+        Text(
+            modifier = modifier.fillMaxWidth(),
+            text = "set name: ${momentNFT.setFlowName}",
+            style = MaterialTheme.typography.titleMedium,
+        )
     }
 }
