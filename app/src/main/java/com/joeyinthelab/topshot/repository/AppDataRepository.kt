@@ -10,12 +10,7 @@ interface AppDataRepository {
     val appData: Flow<AppData>
 
     /**
-     * Sets whether using Testnet or Mainnet
+     * Sets the active username
      */
-    suspend fun setIsTestnet(isTestnet: Boolean)
-
-    /**
-     * Sets the active user's account address
-     */
-    suspend fun setAccountAddress(address: String)
+    suspend fun setUsername(username: String)
 }

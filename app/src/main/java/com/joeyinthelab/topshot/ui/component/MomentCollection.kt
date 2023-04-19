@@ -1,4 +1,4 @@
-package com.joeyinthelab.topshot.ui
+package com.joeyinthelab.topshot.ui.component
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -11,19 +11,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.joeyinthelab.topshot.CollectionUiState.Loading
 import com.joeyinthelab.topshot.CollectionUiState.Success
-import com.joeyinthelab.topshot.TopShotCollectionViewModel
+import com.joeyinthelab.topshot.MomentCollectionViewModel
 
 @Composable
-fun TopShotCollection(
+fun MomentCollection(
     onMomentClick: (String) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: TopShotCollectionViewModel = viewModel(),
+    viewModel: MomentCollectionViewModel = hiltViewModel(),
 ) {
-    val collectionState by viewModel.collections.collectAsStateWithLifecycle()
+    val collectionState by viewModel.collectionUiState.collectAsStateWithLifecycle()
     when (collectionState) {
         Loading -> {
             Box(
@@ -37,11 +37,9 @@ fun TopShotCollection(
             val collection = (collectionState as Success).collection
             if (collection.isNotEmpty()) {
                 LazyColumn {
-                    items(collection.toList()) { momentFlowId ->
-                        val momentFlowUrl = "https://assets.nbatopshot.com/media/$momentFlowId/transparent"
-                        TopShotCard(
-                            momentFlowId = momentFlowId,
-                            momentFlowUrl = momentFlowUrl,
+                    items(collection.toList()) { momentNFT ->
+                        MomentCard(
+                            momentNFT = momentNFT,
                             onClick = onMomentClick,
                             modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
                         )

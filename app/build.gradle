@@ -3,6 +3,8 @@ plugins {
 	id 'org.jetbrains.kotlin.android'
 	id 'kotlin-kapt'
 	id 'com.google.dagger.hilt.android'
+	id 'com.apollographql.apollo3' version '3.8.0'
+	id 'com.google.protobuf' version '0.8.19'
 }
 
 android {
@@ -39,7 +41,7 @@ android {
 		compose true
 	}
 	composeOptions {
-		kotlinCompilerExtensionVersion "$compose_version"
+		kotlinCompilerExtensionVersion '1.4.1'
 	}
 	packagingOptions {
 		resources {
@@ -48,31 +50,62 @@ android {
 	}
 }
 
+protobuf {
+	protoc {
+		artifact = "com.google.protobuf:protoc:3.21.12"
+	}
+
+	// Generates the java Protobuf-lite code for the Protobufs in this project. See
+	// https://github.com/google/protobuf-gradle-plugin#customizing-protobuf-compilation
+	// for more information.
+	generateProtoTasks {
+		all().each { task ->
+			task.builtins {
+				java {
+					option 'lite'
+				}
+			}
+		}
+	}
+}
+
 dependencies {
 	implementation 'androidx.core:core-ktx:1.10.0'
+
+	def lifecycle_version = '2.6.1'
 	implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
 	implementation "androidx.lifecycle:lifecycle-runtime-compose:$lifecycle_version"
 	implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version"
-	implementation 'androidx.activity:activity-compose:1.7.0'
+
+	def compose_version = '1.5.0-alpha02'
 	implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
 	implementation 'androidx.compose.material3:material3:1.1.0-beta02'
+
+	implementation 'androidx.activity:activity-compose:1.7.0'
 	implementation 'androidx.core:core-splashscreen:1.0.0'
 	implementation 'androidx.media3:media3-exoplayer:1.0.0'
 	implementation "androidx.media3:media3-ui:1.0.0"
 	implementation 'com.google.accompanist:accompanist-systemuicontroller:0.31.0-alpha'
-	implementation "io.coil-kt:coil:$coil_version"
-	implementation "io.coil-kt:coil-compose:$coil_version"
-	implementation "io.coil-kt:coil-video:$coil_version"
+	implementation 'com.apollographql.apollo3:apollo-runtime:3.8.0'
+	implementation 'androidx.navigation:navigation-compose:2.6.0-alpha09'
+
+	def okhttp_version = '5.0.0-alpha.11'
 	implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
 	implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
 
-	// Flow
-	api 'com.nftco:flow-jvm-sdk:0.7.3'
-	implementation 'io.grpc:grpc-okhttp:1.44.0'
-
-	// Hilt
+	def hilt_version = '2.44.2'
 	implementation "com.google.dagger:hilt-android:$hilt_version"
 	kapt "com.google.dagger:hilt-compiler:$hilt_version"
+	implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
+
+	def coil_version = '2.3.0'
+	implementation "io.coil-kt:coil:$coil_version"
+	implementation "io.coil-kt:coil-compose:$coil_version"
+	implementation "io.coil-kt:coil-video:$coil_version"
+
+	implementation 'androidx.datastore:datastore:1.0.0'
+	implementation 'com.google.protobuf:protobuf-kotlin-lite:3.21.12'
+	implementation 'androidx.datastore:datastore-preferences:1.0.0'
 
 	debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
 	debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
@@ -86,3 +119,10 @@ dependencies {
 kapt {
 	correctErrorTypes true
 }
+
+apollo {
+	service("service") {
+		packageName.set("com.joeyinthelab.topshot")
+	}
+}
+

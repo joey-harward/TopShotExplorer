@@ -20,8 +20,7 @@ class SettingsViewModel @Inject constructor(
             .map { appData ->
                 SettingsUiState.Success(
                     settings = EditableAppData(
-                        isTestnet = appData.isTestnet,
-                        accountAddress = appData.accountAddress,
+                        username = appData.username,
                     ),
                 )
             }
@@ -31,22 +30,17 @@ class SettingsViewModel @Inject constructor(
                 initialValue = SettingsUiState.Loading,
             )
 
-    fun updateIsTestnet(isTestnet: Boolean) {
-        viewModelScope.launch {
-            appDataRepository.setIsTestnet(isTestnet)
-        }
-    }
-
-    fun updateAccountAddress(accountAddress: String) {
-        viewModelScope.launch {
-            appDataRepository.setAccountAddress(accountAddress)
+    fun updateUsername(username: String) {
+        if (username.isNotEmpty()) {
+            viewModelScope.launch {
+                appDataRepository.setUsername(username.trim())
+            }
         }
     }
 }
 
 data class EditableAppData(
-    val isTestnet: Boolean,
-    val accountAddress: String,
+    val username: String
 )
 
 sealed interface SettingsUiState {

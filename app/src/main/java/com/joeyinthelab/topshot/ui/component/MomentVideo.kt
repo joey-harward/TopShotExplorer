@@ -1,4 +1,4 @@
-package com.joeyinthelab.topshot.ui
+package com.joeyinthelab.topshot.ui.component
 
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.FrameLayout
@@ -20,7 +20,7 @@ import androidx.media3.ui.PlayerView
 
 @Composable
 @androidx.annotation.OptIn(UnstableApi::class)
-fun TopShotVideoPlayer(uri: String) {
+fun MomentVideo(uri: String) {
 	val context = LocalContext.current
 
 	val exoPlayer = remember {

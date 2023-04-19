@@ -1,4 +1,4 @@
-package com.joeyinthelab.topshot.ui
+package com.joeyinthelab.topshot.ui.dialog
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.AlertDialog
@@ -7,10 +7,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
+import com.joeyinthelab.topshot.ui.component.MomentVideo
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopShotDialog(
+fun MomentVideoDialog(
     momentFlowId: String,
     onDismiss: () -> Unit
 ) {
@@ -21,6 +22,6 @@ fun TopShotDialog(
         modifier = Modifier.height(350.dp),
         onDismissRequest = { onDismiss() },
     ) {
-        TopShotVideoPlayer(uri = momentFlowUrl)
+        MomentVideo(uri = momentFlowUrl)
     }
 }
