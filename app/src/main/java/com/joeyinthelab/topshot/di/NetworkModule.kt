@@ -70,7 +70,7 @@ object NetworkModule {
 class AuthInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request().newBuilder()
-            .addHeader("Authorization", "joey.harward@gmail.com Android")
+            .addHeader("User-Agent", "joey.harward@gmail.com Android v${BuildConfig.VERSION_NAME}")
         return chain.proceed(request.build())
     }
 }

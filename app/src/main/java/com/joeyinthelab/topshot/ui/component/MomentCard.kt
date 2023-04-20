@@ -21,11 +21,12 @@ fun MomentCard(
 	onClick: (String) -> Unit,
 	modifier: Modifier = Modifier,
 ) {
+    val momentAssetUrl = "https://assets.nbatopshot.com/media/${moment.flowId}/transparent"
     Card(
         onClick = { onClick(moment.flowId) },
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
-            containerColor =  MaterialTheme.colorScheme.inversePrimary,
+            containerColor =  MaterialTheme.colorScheme.secondary,
         ),
         modifier = modifier.fillMaxSize()
     ) {
@@ -41,11 +42,12 @@ fun MomentCard(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(350.dp)
-                .background(MaterialTheme.colorScheme.surfaceVariant)
+                .background(MaterialTheme.colorScheme.secondaryContainer)
         ) {
             AsyncImage(
                 contentScale = ContentScale.Fit,
-                model = "${moment.assetPathPrefix}Hero_2880_2880_Black.jpg?quality=60&width=480",
+                //model = "${moment.assetPathPrefix}Hero_2880_2880_Black.jpg?quality=60&width=480",
+                model = momentAssetUrl,
                 contentDescription = null
             )
         }

@@ -89,7 +89,7 @@ fun DrawerHeader(modifier: Modifier) {
 			text = stringResource(id = R.string.app_name),
 			textAlign = TextAlign.Center,
 			style = MaterialTheme.typography.titleLarge,
-			color = MaterialTheme.colorScheme.onPrimary,
+			color = MaterialTheme.colorScheme.onSecondary,
 		)
 	}
 }

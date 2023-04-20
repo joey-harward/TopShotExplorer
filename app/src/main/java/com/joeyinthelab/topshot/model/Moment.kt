@@ -1,5 +1,8 @@
 package com.joeyinthelab.topshot.model
 
+/**
+ * Class summarizing relevant moment response data
+ */
 data class Moment(
 	val flowId: String,
 	val tier: String,
