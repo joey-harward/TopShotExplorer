@@ -15,18 +15,18 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
-    appDataRepository: AppDataRepository,
+	appDataRepository: AppDataRepository,
 ) : ViewModel() {
-    val uiState: StateFlow<MainActivityUiState> = appDataRepository.appData.map {
-        Success(it)
-    }.stateIn(
-        scope = viewModelScope,
-        initialValue = Loading,
-        started = SharingStarted.WhileSubscribed(5_000),
-    )
+	val uiState: StateFlow<MainActivityUiState> = appDataRepository.appData.map {
+		Success(it)
+	}.stateIn(
+		scope = viewModelScope,
+		initialValue = Loading,
+		started = SharingStarted.WhileSubscribed(5_000),
+	)
 }
 
 sealed interface MainActivityUiState {
-    object Loading : MainActivityUiState
-    data class Success(val appData: AppData) : MainActivityUiState
+	object Loading : MainActivityUiState
+	data class Success(val appData: AppData) : MainActivityUiState
 }

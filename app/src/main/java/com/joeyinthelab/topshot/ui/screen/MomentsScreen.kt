@@ -8,20 +8,20 @@ import com.joeyinthelab.topshot.ui.dialog.MomentVideoDialog
 
 @Composable
 fun MomentsScreen() {
-    val topShotMomentId = remember { mutableStateOf("") }
-    val showTopShotDialog = remember { mutableStateOf(false) }
+	val topShotMomentId = remember { mutableStateOf("") }
+	val showTopShotDialog = remember { mutableStateOf(false) }
 
-    if (showTopShotDialog.value) {
-        MomentVideoDialog(
-            momentFlowId = topShotMomentId.value,
-            onDismiss = { showTopShotDialog.value = false },
-        )
-    }
+	if (showTopShotDialog.value) {
+		MomentVideoDialog(
+			momentFlowId = topShotMomentId.value,
+			onDismiss = { showTopShotDialog.value = false },
+		)
+	}
 
-    MomentCollection(onMomentClick = { momentFlowId ->
-        run {
-            topShotMomentId.value = momentFlowId
-            showTopShotDialog.value = true
-        }
-    })
+	MomentCollection(onMomentClick = { momentFlowId ->
+		run {
+			topShotMomentId.value = momentFlowId
+			showTopShotDialog.value = true
+		}
+	})
 }

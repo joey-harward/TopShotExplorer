@@ -10,8 +10,8 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 interface DataModule {
-    @Binds
-    fun bindsAppDataRepository(
-        offlineAppDataRepository: OfflineAppDataRepository,
-    ): AppDataRepository
+	@Binds
+	fun bindsAppDataRepository(
+		offlineAppDataRepository: OfflineAppDataRepository,
+	): AppDataRepository
 }

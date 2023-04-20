@@ -6,11 +6,11 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class OfflineAppDataRepository @Inject constructor(
-    private val preferencesDataSource: TopShotPreferencesDataStore,
+	private val preferencesDataSource: TopShotPreferencesDataStore,
 ) : AppDataRepository {
-    override val appData: Flow<AppData> = preferencesDataSource.appData
+	override val appData: Flow<AppData> = preferencesDataSource.appData
 
-    override suspend fun setUsername(username: String) {
-        preferencesDataSource.setUsername(username)
-    }
+	override suspend fun setUsername(username: String) {
+		preferencesDataSource.setUsername(username)
+	}
 }

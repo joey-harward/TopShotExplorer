@@ -19,52 +19,52 @@ import com.joeyinthelab.topshot.MomentCollectionViewModel
 
 @Composable
 fun MomentCollection(
-    onMomentClick: (String) -> Unit,
-    modifier: Modifier = Modifier,
-    viewModel: MomentCollectionViewModel = hiltViewModel(),
+	onMomentClick: (String) -> Unit,
+	modifier: Modifier = Modifier,
+	viewModel: MomentCollectionViewModel = hiltViewModel(),
 ) {
-    val collectionState by viewModel.collectionUiState.collectAsStateWithLifecycle()
-    when (collectionState) {
-        Loading -> {
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = modifier.fillMaxSize()
-            ) {
-                CircularProgressIndicator()
-            }
-        }
-        is Success -> {
-            val collection = (collectionState as Success).collection
-            if (collection.isNotEmpty()) {
-                LazyColumn {
-                    items(collection.toList()) { momentNFT ->
-                        MomentCard(
-                            moment = momentNFT,
-                            onClick = onMomentClick,
-                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
-                        )
-                    }
-                }
-            } else {
-                Column(
-                    modifier = modifier.fillMaxSize().padding(horizontal = 20.dp),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = "No Collections Found",
-                        textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.titleMedium,
-                    )
-                    Spacer(modifier = Modifier.padding(5.dp))
-                    Text(
-                        text = "Either the username doesn't exist or hasn't been set yet. You can update your username in Settings.",
-                        textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.bodyLarge,
-                    )
-                }
-            }
-        }
-    }
+	val collectionState by viewModel.collectionUiState.collectAsStateWithLifecycle()
+	when (collectionState) {
+		Loading -> {
+			Box(
+				contentAlignment = Alignment.Center,
+				modifier = modifier.fillMaxSize()
+			) {
+				CircularProgressIndicator()
+			}
+		}
+		is Success -> {
+			val collection = (collectionState as Success).collection
+			if (collection.isNotEmpty()) {
+				LazyColumn {
+					items(collection.toList()) { momentNFT ->
+						MomentCard(
+							moment = momentNFT,
+							onClick = onMomentClick,
+							modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
+						)
+					}
+				}
+			} else {
+				Column(
+					modifier = modifier.fillMaxSize().padding(horizontal = 20.dp),
+					verticalArrangement = Arrangement.Center,
+					horizontalAlignment = Alignment.CenterHorizontally
+				) {
+					Text(
+						text = "No Collections Found",
+						textAlign = TextAlign.Center,
+						style = MaterialTheme.typography.titleMedium,
+					)
+					Spacer(modifier = Modifier.padding(5.dp))
+					Text(
+						text = "Either the username doesn't exist or hasn't been set yet. You can update your username in Settings.",
+						textAlign = TextAlign.Center,
+						style = MaterialTheme.typography.bodyLarge,
+					)
+				}
+			}
+		}
+	}
 }
 

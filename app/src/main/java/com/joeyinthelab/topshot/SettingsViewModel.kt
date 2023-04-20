@@ -13,37 +13,37 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
-    private val appDataRepository: AppDataRepository,
+	private val appDataRepository: AppDataRepository,
 ) : ViewModel() {
-    val settingsUiState: StateFlow<SettingsUiState> =
-        appDataRepository.appData
-            .map { appData ->
-                SettingsUiState.Success(
-                    settings = EditableAppData(
-                        username = appData.username,
-                    ),
-                )
-            }
-            .stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.Eagerly,
-                initialValue = SettingsUiState.Loading,
-            )
+	val settingsUiState: StateFlow<SettingsUiState> =
+		appDataRepository.appData
+			.map { appData ->
+				SettingsUiState.Success(
+					settings = EditableAppData(
+						username = appData.username,
+					),
+				)
+			}
+			.stateIn(
+				scope = viewModelScope,
+				started = SharingStarted.Eagerly,
+				initialValue = SettingsUiState.Loading,
+			)
 
-    fun updateUsername(username: String) {
-        if (username.isNotEmpty()) {
-            viewModelScope.launch {
-                appDataRepository.setUsername(username.trim())
-            }
-        }
-    }
+	fun updateUsername(username: String) {
+		if (username.isNotEmpty()) {
+			viewModelScope.launch {
+				appDataRepository.setUsername(username.trim())
+			}
+		}
+	}
 }
 
 data class EditableAppData(
-    val username: String
+	val username: String
 )
 
 sealed interface SettingsUiState {
-    object Loading : SettingsUiState
-    data class Success(val settings: EditableAppData) : SettingsUiState
+	object Loading : SettingsUiState
+	data class Success(val settings: EditableAppData) : SettingsUiState
 }

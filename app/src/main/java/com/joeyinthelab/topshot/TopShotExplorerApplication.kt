@@ -9,8 +9,8 @@ import javax.inject.Provider
 
 @HiltAndroidApp
 class TopShotExplorerApplication : Application(), ImageLoaderFactory {
-    @Inject
-    lateinit var imageLoader: Provider<ImageLoader>
+	@Inject
+	lateinit var imageLoader: Provider<ImageLoader>
 
-    override fun newImageLoader(): ImageLoader = imageLoader.get()
+	override fun newImageLoader(): ImageLoader = imageLoader.get()
 }

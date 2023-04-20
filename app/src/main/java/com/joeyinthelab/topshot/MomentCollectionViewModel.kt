@@ -13,23 +13,23 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MomentCollectionViewModel @Inject constructor(
-    appDataRepository: AppDataRepository,
-    private val topShotRepository: TopShotRepository,
+	appDataRepository: AppDataRepository,
+	private val topShotRepository: TopShotRepository,
 ) : ViewModel() {
-val collectionUiState: StateFlow<CollectionUiState> =
-    appDataRepository.appData
-        .map {
-            val collection = topShotRepository.getUserMoments(it.username)
-            Success(collection)
-        }
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = Loading,
-        )
+	val collectionUiState: StateFlow<CollectionUiState> =
+		appDataRepository.appData
+			.map {
+				val collection = topShotRepository.getUserMoments(it.username)
+				Success(collection)
+			}
+			.stateIn(
+				scope = viewModelScope,
+				started = SharingStarted.WhileSubscribed(5_000),
+				initialValue = Loading,
+			)
 }
 
 sealed interface CollectionUiState {
-    object Loading : CollectionUiState
-    data class Success(val collection: List<Moment>) : CollectionUiState
+	object Loading : CollectionUiState
+	data class Success(val collection: List<Moment>) : CollectionUiState
 }

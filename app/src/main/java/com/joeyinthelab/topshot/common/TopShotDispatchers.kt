@@ -8,5 +8,5 @@ import kotlin.annotation.AnnotationRetention.RUNTIME
 annotation class Dispatcher(val niaDispatcher: TopShotDispatchers)
 
 enum class TopShotDispatchers {
-    IO,
+	IO,
 }

@@ -11,11 +11,11 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun PlayersScreen() {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(text = "Players Screen",  style = MaterialTheme.typography.headlineMedium)
-    }
+	Column(
+		modifier = Modifier.fillMaxSize(),
+		verticalArrangement = Arrangement.Center,
+		horizontalAlignment = Alignment.CenterHorizontally
+	) {
+		Text(text = "Players Screen",  style = MaterialTheme.typography.headlineMedium)
+	}
 }

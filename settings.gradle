@@ -3,7 +3,6 @@ pluginManagement {
 		google()
 		mavenCentral()
 		gradlePluginPortal()
-		maven { url 'https://jitpack.io' }
 	}
 }
 dependencyResolutionManagement {
@@ -14,5 +13,5 @@ dependencyResolutionManagement {
 		maven { url 'https://jitpack.io' }
 	}
 }
-rootProject.name = "TopShot Explorer"
+rootProject.name = "Top Shot Explorer"
 include ':app'

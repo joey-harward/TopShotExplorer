@@ -12,16 +12,16 @@ import com.joeyinthelab.topshot.ui.component.MomentVideo
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MomentVideoDialog(
-    momentFlowId: String,
-    onDismiss: () -> Unit
+	momentFlowId: String,
+	onDismiss: () -> Unit
 ) {
-    val momentFlowUrl = "https://assets.nbatopshot.com/media/$momentFlowId/video"
+	val momentFlowUrl = "https://assets.nbatopshot.com/media/$momentFlowId/video"
 
-    AlertDialog(
-        properties = DialogProperties(usePlatformDefaultWidth = false),
-        modifier = Modifier.height(350.dp),
-        onDismissRequest = { onDismiss() },
-    ) {
-        MomentVideo(uri = momentFlowUrl)
-    }
+	AlertDialog(
+		properties = DialogProperties(usePlatformDefaultWidth = false),
+		modifier = Modifier.height(350.dp),
+		onDismissRequest = { onDismiss() },
+	) {
+		MomentVideo(uri = momentFlowUrl)
+	}
 }

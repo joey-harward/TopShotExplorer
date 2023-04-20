@@ -22,55 +22,55 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-    @Provides
-    @Singleton
-    fun okHttpClient(): OkHttpClient = OkHttpClient.Builder()
-        .addInterceptor(AuthInterceptor())
-        .addInterceptor(
-            HttpLoggingInterceptor()
-                .apply {
-                    if (BuildConfig.DEBUG) {
-                        setLevel(HttpLoggingInterceptor.Level.BODY)
-                    }
-                },
-        )
-        .build()
+	@Provides
+	@Singleton
+	fun okHttpClient(): OkHttpClient = OkHttpClient.Builder()
+		.addInterceptor(AuthInterceptor())
+		.addInterceptor(
+			HttpLoggingInterceptor()
+				.apply {
+					if (BuildConfig.DEBUG) {
+						setLevel(HttpLoggingInterceptor.Level.BODY)
+					}
+				},
+		)
+		.build()
 
-    @Provides
-    @Singleton
-    fun imageLoader(
-        @ApplicationContext application: Context,
-        okHttpClient: OkHttpClient,
-    ): ImageLoader = ImageLoader.Builder(application)
-        .okHttpClient(okHttpClient)
-        .components {
-            add(VideoFrameDecoder.Factory())
-        }
-        .respectCacheHeaders(false)
-        .apply {
-            if (BuildConfig.DEBUG) {
-                logger(DebugLogger())
-            }
-        }
-        .build()
+	@Provides
+	@Singleton
+	fun imageLoader(
+		@ApplicationContext application: Context,
+		okHttpClient: OkHttpClient,
+	): ImageLoader = ImageLoader.Builder(application)
+		.okHttpClient(okHttpClient)
+		.components {
+			add(VideoFrameDecoder.Factory())
+		}
+		.respectCacheHeaders(false)
+		.apply {
+			if (BuildConfig.DEBUG) {
+				logger(DebugLogger())
+			}
+		}
+		.build()
 
-    @Provides
-    @Singleton
-    fun provideApollo(
-        @ApplicationContext application: Context,
-        okHttpClient: OkHttpClient
-    ) : ApolloClient {
-        return ApolloClient.Builder()
-            .serverUrl(application.getString(R.string.topshot_graphql))
-            .okHttpClient(okHttpClient)
-            .build()
-    }
+	@Provides
+	@Singleton
+	fun provideApollo(
+		@ApplicationContext application: Context,
+		okHttpClient: OkHttpClient
+	) : ApolloClient {
+		return ApolloClient.Builder()
+			.serverUrl(application.getString(R.string.topshot_graphql))
+			.okHttpClient(okHttpClient)
+			.build()
+	}
 }
 
 class AuthInterceptor : Interceptor {
-    override fun intercept(chain: Interceptor.Chain): Response {
-        val request = chain.request().newBuilder()
-            .addHeader("User-Agent", "joey.harward@gmail.com Android v${BuildConfig.VERSION_NAME}")
-        return chain.proceed(request.build())
-    }
+	override fun intercept(chain: Interceptor.Chain): Response {
+		val request = chain.request().newBuilder()
+			.addHeader("User-Agent", "joey.harward@gmail.com Android v${BuildConfig.VERSION_NAME}")
+		return chain.proceed(request.build())
+	}
 }
