@@ -12,17 +12,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.joeyinthelab.topshot.model.MomentNFT
+import com.joeyinthelab.topshot.model.Moment
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MomentCard(
-    momentNFT: MomentNFT,
-    onClick: (String) -> Unit,
-    modifier: Modifier = Modifier,
+	moment: Moment,
+	onClick: (String) -> Unit,
+	modifier: Modifier = Modifier,
 ) {
     Card(
-        onClick = { onClick(momentNFT.flowId) },
+        onClick = { onClick(moment.flowId) },
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
             containerColor =  MaterialTheme.colorScheme.inversePrimary,
@@ -31,7 +31,7 @@ fun MomentCard(
     ) {
         Text(
             modifier = modifier.fillMaxWidth(),
-            text = momentNFT.flowId,
+            text = moment.playHeadline,
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold,
@@ -45,24 +45,29 @@ fun MomentCard(
         ) {
             AsyncImage(
                 contentScale = ContentScale.Fit,
-                model = "${momentNFT.assetPathPrefix}Hero_2880_2880_Black.jpg?quality=60&width=480",
+                model = "${moment.assetPathPrefix}Hero_2880_2880_Black.jpg?quality=60&width=480",
                 contentDescription = null
             )
         }
-        Text(
-            modifier = modifier.fillMaxWidth(),
-            text = "tier: ${momentNFT.tier}",
-            style = MaterialTheme.typography.titleMedium,
-        )
-        Text(
-            modifier = modifier.fillMaxWidth(),
-            text = "serial number: ${momentNFT.flowSerialNumber}",
-            style = MaterialTheme.typography.titleMedium,
-        )
-        Text(
-            modifier = modifier.fillMaxWidth(),
-            text = "set name: ${momentNFT.setFlowName}",
-            style = MaterialTheme.typography.titleMedium,
-        )
+        Column(
+            modifier = modifier,
+            verticalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = moment.playShortDescription,
+                style = MaterialTheme.typography.bodyMedium,
+            )
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = "From Set: ${moment.setFlowName}",
+                style = MaterialTheme.typography.bodyMedium,
+            )
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = "Serial Number: ${moment.flowSerialNumber}",
+                style = MaterialTheme.typography.bodyMedium,
+            )
+        }
     }
 }

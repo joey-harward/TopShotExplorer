@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.joeyinthelab.topshot.CollectionUiState.Loading
 import com.joeyinthelab.topshot.CollectionUiState.Success
-import com.joeyinthelab.topshot.model.MomentNFT
+import com.joeyinthelab.topshot.model.Moment
 import com.joeyinthelab.topshot.repository.AppDataRepository
 import com.joeyinthelab.topshot.repository.TopShotRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +19,7 @@ class MomentCollectionViewModel @Inject constructor(
 val collectionUiState: StateFlow<CollectionUiState> =
     appDataRepository.appData
         .map {
-            val collection = topShotRepository.getUserMoments2(it.username)
+            val collection = topShotRepository.getUserMoments(it.username)
             Success(collection)
         }
         .stateIn(
@@ -31,5 +31,5 @@ val collectionUiState: StateFlow<CollectionUiState> =
 
 sealed interface CollectionUiState {
     object Loading : CollectionUiState
-    data class Success(val collection: List<MomentNFT>) : CollectionUiState
+    data class Success(val collection: List<Moment>) : CollectionUiState
 }

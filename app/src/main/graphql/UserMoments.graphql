@@ -16,7 +16,19 @@ query UserMoments($flowAddress: String!) {
             searchSummary {
                 data {
                     data {
-                        sortID
+                        ... on MintedMoment {
+                            flowId
+                            tier
+                            set {
+                                flowName
+                            }
+                            flowSerialNumber
+                            assetPathPrefix
+                            play {
+                                headline
+                                shortDescription
+                            }
+                        }
                     }
                 }
             }

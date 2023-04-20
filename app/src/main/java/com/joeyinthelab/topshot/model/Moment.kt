@@ -1,9 +1,11 @@
 package com.joeyinthelab.topshot.model
 
-data class MomentNFT(
+data class Moment(
 	val flowId: String,
 	val tier: String,
 	val setFlowName: String,
 	val flowSerialNumber: String,
 	val assetPathPrefix: String,
+	val playHeadline: String,
+	val playShortDescription: String,
 )

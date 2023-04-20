@@ -39,7 +39,7 @@ fun MomentCollection(
                 LazyColumn {
                     items(collection.toList()) { momentNFT ->
                         MomentCard(
-                            momentNFT = momentNFT,
+                            moment = momentNFT,
                             onClick = onMomentClick,
                             modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
                         )
