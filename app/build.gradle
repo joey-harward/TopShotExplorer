@@ -4,7 +4,7 @@ plugins {
 	id 'kotlin-kapt'
 	id 'com.google.dagger.hilt.android'
 	id 'com.apollographql.apollo3' version '3.8.0'
-	id 'com.google.protobuf' version '0.8.19'
+	id 'com.google.protobuf' version '0.9.0'
 }
 
 android {
@@ -31,11 +31,11 @@ android {
 		}
 	}
 	compileOptions {
-		sourceCompatibility JavaVersion.VERSION_1_8
-		targetCompatibility JavaVersion.VERSION_1_8
+		sourceCompatibility JavaVersion.VERSION_17
+		targetCompatibility JavaVersion.VERSION_17
 	}
 	kotlinOptions {
-		jvmTarget = '1.8'
+		jvmTarget = JavaVersion.VERSION_17.toString()
 	}
 	buildFeatures {
 		compose true
@@ -77,17 +77,18 @@ dependencies {
 	implementation "androidx.lifecycle:lifecycle-runtime-compose:$lifecycle_version"
 	implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version"
 
-	def compose_version = '1.5.0-alpha02'
+	def compose_version = '1.5.0-alpha03'
 	implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-	implementation 'androidx.compose.material3:material3:1.1.0-beta02'
+	implementation 'androidx.compose.material3:material3:1.1.0-rc01'
+	implementation 'androidx.activity:activity-compose:1.7.1'
+	implementation 'androidx.core:core-splashscreen:1.0.1'
 
-	implementation 'androidx.activity:activity-compose:1.7.0'
-	implementation 'androidx.core:core-splashscreen:1.0.0'
-	implementation 'androidx.media3:media3-exoplayer:1.0.0'
-	implementation "androidx.media3:media3-ui:1.0.0"
+	def media3_version = '1.0.1'
+	implementation "androidx.media3:media3-exoplayer:$media3_version"
+	implementation "androidx.media3:media3-ui:$media3_version"
 	implementation 'com.google.accompanist:accompanist-systemuicontroller:0.31.0-alpha'
 	implementation 'com.apollographql.apollo3:apollo-runtime:3.8.0'
-	implementation 'androidx.navigation:navigation-compose:2.6.0-alpha09'
+	implementation 'androidx.navigation:navigation-compose:2.6.0-beta01'
 
 	def okhttp_version = '5.0.0-alpha.11'
 	implementation "com.squareup.okhttp3:okhttp:$okhttp_version"

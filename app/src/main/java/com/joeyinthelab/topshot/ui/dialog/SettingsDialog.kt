@@ -52,7 +52,7 @@ fun SettingsDialog(
 		text = {
 			Divider()
 			Column(Modifier.verticalScroll(rememberScrollState())) {
-				when (settingsUiState) {
+				when (val settingsState = settingsUiState) {
 					SettingsUiState.Loading -> {
 						Text(
 							text = "Loading...",
@@ -64,7 +64,7 @@ fun SettingsDialog(
 						SettingsDialogSectionTitle(text = "Account Info")
 						OutlinedTextField(
 							value = if (usernameInitialized) { username } else {
-								(settingsUiState as SettingsUiState.Success).settings.username
+								settingsState.settings.username
 							},
 							onValueChange = { s -> username = s },
 							label = { Text("Username") }

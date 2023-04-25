@@ -23,8 +23,8 @@ fun MomentCollection(
 	modifier: Modifier = Modifier,
 	viewModel: MomentCollectionViewModel = hiltViewModel(),
 ) {
-	val collectionState by viewModel.collectionUiState.collectAsStateWithLifecycle()
-	when (collectionState) {
+	val collectionUiState by viewModel.collectionUiState.collectAsStateWithLifecycle()
+	when (val collectionState = collectionUiState) {
 		Loading -> {
 			Box(
 				contentAlignment = Alignment.Center,
@@ -34,7 +34,7 @@ fun MomentCollection(
 			}
 		}
 		is Success -> {
-			val collection = (collectionState as Success).collection
+			val collection = collectionState.collection
 			if (collection.isNotEmpty()) {
 				LazyColumn {
 					items(collection.toList()) { momentNFT ->

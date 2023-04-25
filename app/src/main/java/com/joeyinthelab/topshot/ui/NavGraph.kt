@@ -22,6 +22,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -51,10 +52,10 @@ fun NavGraph(
 		AppNavigationActions(navController)
 	}
 
-	val showSettingsDialog = remember { mutableStateOf(false) }
-	if (showSettingsDialog.value) {
+	var showSettingsDialog by remember { mutableStateOf(false) }
+	if (showSettingsDialog) {
 		SettingsDialog(
-			onDismiss = { showSettingsDialog.value = false },
+			onDismiss = { showSettingsDialog = false },
 		)
 	}
 
@@ -85,7 +86,7 @@ fun NavGraph(
 						)
 					},
 					actions = {
-						IconButton(onClick = { showSettingsDialog.value = true }) {
+						IconButton(onClick = { showSettingsDialog = true }) {
 							Icon(
 								imageVector = Icons.Rounded.Settings,
 								contentDescription = "Settings",
