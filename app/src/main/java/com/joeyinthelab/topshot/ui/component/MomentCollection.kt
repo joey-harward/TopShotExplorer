@@ -8,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -20,7 +19,6 @@ import com.joeyinthelab.topshot.MomentCollectionViewModel
 @Composable
 fun MomentCollection(
 	onMomentClick: (String) -> Unit,
-	modifier: Modifier = Modifier,
 	viewModel: MomentCollectionViewModel = hiltViewModel(),
 ) {
 	val collectionUiState by viewModel.collectionUiState.collectAsStateWithLifecycle()
@@ -28,7 +26,7 @@ fun MomentCollection(
 		Loading -> {
 			Box(
 				contentAlignment = Alignment.Center,
-				modifier = modifier.fillMaxSize()
+				modifier = Modifier.fillMaxSize()
 			) {
 				CircularProgressIndicator()
 			}
@@ -36,18 +34,20 @@ fun MomentCollection(
 		is Success -> {
 			val collection = collectionState.collection
 			if (collection.isNotEmpty()) {
-				LazyColumn {
-					items(collection.toList()) { momentNFT ->
+				LazyColumn(
+					contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp),
+					verticalArrangement = Arrangement.spacedBy(16.dp),
+				) {
+					items(collection) { moment ->
 						MomentCard(
-							moment = momentNFT,
+							moment = moment,
 							onClick = onMomentClick,
-							modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
 						)
 					}
 				}
 			} else {
 				Column(
-					modifier = modifier.fillMaxSize().padding(horizontal = 20.dp),
+					modifier = Modifier.fillMaxSize().padding(horizontal = 20.dp),
 					verticalArrangement = Arrangement.Center,
 					horizontalAlignment = Alignment.CenterHorizontally
 				) {

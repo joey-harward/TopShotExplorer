@@ -1,21 +1,31 @@
 package com.joeyinthelab.topshot.ui.screen
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import com.joeyinthelab.topshot.ui.component.PlayerMomentCollection
+import com.joeyinthelab.topshot.ui.dialog.MomentVideoDialog
 
 @Composable
 fun PlayersScreen() {
-	Column(
-		modifier = Modifier.fillMaxSize(),
-		verticalArrangement = Arrangement.Center,
-		horizontalAlignment = Alignment.CenterHorizontally
-	) {
-		Text(text = "Players Screen",  style = MaterialTheme.typography.headlineMedium)
+	var topShotMomentId by remember { mutableStateOf("") }
+	var showTopShotDialog by remember { mutableStateOf(false) }
+
+	if (showTopShotDialog) {
+		MomentVideoDialog(
+			momentFlowId = topShotMomentId,
+			onDismiss = { showTopShotDialog = false },
+		)
 	}
+
+	PlayerMomentCollection(
+		onMomentClick = { momentFlowId ->
+			run {
+				topShotMomentId = momentFlowId
+				showTopShotDialog = true
+			}
+		}
+	)
 }

@@ -19,7 +19,6 @@ import com.joeyinthelab.topshot.model.Moment
 fun MomentCard(
 	moment: Moment,
 	onClick: (String) -> Unit,
-	modifier: Modifier = Modifier,
 ) {
 	val momentAssetUrl = "https://assets.nbatopshot.com/media/${moment.flowId}/transparent"
 	Card(
@@ -28,10 +27,10 @@ fun MomentCard(
 		colors = CardDefaults.cardColors(
 			containerColor =  MaterialTheme.colorScheme.secondary,
 		),
-		modifier = modifier.fillMaxSize()
+		modifier = Modifier.fillMaxSize()
 	) {
 		Text(
-			modifier = modifier.fillMaxWidth(),
+			modifier = Modifier.fillMaxWidth().padding(16.dp),
 			text = moment.playHeadline,
 			textAlign = TextAlign.Center,
 			style = MaterialTheme.typography.titleMedium,
@@ -52,7 +51,7 @@ fun MomentCard(
 			)
 		}
 		Column(
-			modifier = modifier,
+			modifier = Modifier.fillMaxWidth().padding(16.dp),
 			verticalArrangement = Arrangement.spacedBy(10.dp)
 		) {
 			Text(

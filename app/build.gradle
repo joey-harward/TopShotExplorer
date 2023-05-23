@@ -11,6 +11,9 @@ android {
 	namespace 'com.joeyinthelab.topshot'
 	compileSdk 33
 
+	def localProperties = new Properties()
+	localProperties.load(project.rootProject.file('local.properties').newDataInputStream())
+
 	defaultConfig {
 		applicationId "com.joeyinthelab.topshot"
 		minSdk 24
@@ -22,6 +25,9 @@ android {
 		vectorDrawables {
 			useSupportLibrary true
 		}
+
+		def openaiToken = localProperties.getProperty("openai.token")
+		buildConfigField "String", "OPENAI_TOKEN", "\"$openaiToken\""
 	}
 
 	buildTypes {
@@ -70,25 +76,25 @@ protobuf {
 }
 
 dependencies {
-	implementation 'androidx.core:core-ktx:1.10.0'
+	implementation 'androidx.core:core-ktx:1.10.1'
 
 	def lifecycle_version = '2.6.1'
 	implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
 	implementation "androidx.lifecycle:lifecycle-runtime-compose:$lifecycle_version"
 	implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version"
 
-	def compose_version = '1.5.0-alpha03'
+	def compose_version = '1.5.0-alpha04'
 	implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-	implementation 'androidx.compose.material3:material3:1.1.0-rc01'
+	implementation 'androidx.compose.material3:material3:1.2.0-alpha01'
 	implementation 'androidx.activity:activity-compose:1.7.1'
 	implementation 'androidx.core:core-splashscreen:1.0.1'
 
-	def media3_version = '1.0.1'
+	def media3_version = '1.0.2'
 	implementation "androidx.media3:media3-exoplayer:$media3_version"
 	implementation "androidx.media3:media3-ui:$media3_version"
 	implementation 'com.google.accompanist:accompanist-systemuicontroller:0.31.0-alpha'
 	implementation 'com.apollographql.apollo3:apollo-runtime:3.8.0'
-	implementation 'androidx.navigation:navigation-compose:2.6.0-beta01'
+	implementation 'androidx.navigation:navigation-compose:2.6.0-rc01'
 
 	def okhttp_version = '5.0.0-alpha.11'
 	implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
@@ -103,6 +109,11 @@ dependencies {
 	implementation "io.coil-kt:coil:$coil_version"
 	implementation "io.coil-kt:coil-compose:$coil_version"
 	implementation "io.coil-kt:coil-video:$coil_version"
+
+	// OpenAI
+	implementation platform('com.aallam.openai:openai-client-bom:3.2.0')
+	implementation 'com.aallam.openai:openai-client'
+	implementation 'io.ktor:ktor-client-okhttp'
 
 	implementation 'androidx.datastore:datastore:1.0.0'
 	implementation 'com.google.protobuf:protobuf-kotlin-lite:3.21.12'

@@ -1,0 +1,11 @@
+query SearchPlayers($player: String!) {
+    getSearchSuggestions(
+        input: {
+            input: $player
+        }) {
+        playerSuggestions {
+            id
+            name
+        }
+    }
+}

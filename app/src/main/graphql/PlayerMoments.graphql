@@ -1,0 +1,37 @@
+query PlayerMoments($players: [ID!]!) {
+    searchMintedMoments(
+        input: {
+            filters: {
+                byPlayers: $players
+            }
+            searchInput: {
+                pagination: {
+                    cursor: ""
+                    direction: RIGHT
+                    limit: 1
+                }
+            }
+        }) {
+        data {
+            searchSummary {
+                data {
+                    data {
+                        ... on MintedMoment {
+                            flowId
+                            tier
+                            set {
+                                flowName
+                            }
+                            flowSerialNumber
+                            assetPathPrefix
+                            play {
+                                headline
+                                shortDescription
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

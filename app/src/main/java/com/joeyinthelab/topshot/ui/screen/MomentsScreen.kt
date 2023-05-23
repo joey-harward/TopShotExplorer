@@ -20,10 +20,12 @@ fun MomentsScreen() {
 		)
 	}
 
-	MomentCollection(onMomentClick = { momentFlowId ->
-		run {
-			topShotMomentId = momentFlowId
-			showTopShotDialog = true
+	MomentCollection(
+		onMomentClick = { momentFlowId ->
+			run {
+				topShotMomentId = momentFlowId
+				showTopShotDialog = true
+			}
 		}
-	})
+	)
 }
