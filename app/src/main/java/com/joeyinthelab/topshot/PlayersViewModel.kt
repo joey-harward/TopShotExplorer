@@ -31,7 +31,7 @@ class PlayersViewModel @Inject constructor(
 	}
 
 	@OptIn(BetaOpenAI::class)
-	fun getPlayersByCollege(collegeName: String) {
+	fun playerMomentSearch(query: String) {
 		_playersUiState.value = PlayersUiState.Loading
 
 		viewModelScope.launch {
@@ -40,24 +40,16 @@ class PlayersViewModel @Inject constructor(
 				messages = listOf(
 					ChatMessage(
 						role = ChatRole.User,
-						//content = "ordered list of $collegeName players in the NBA"
-						content = "ordered list of NBA players that went to $collegeName"
+						content = "comma separated list of NBA players $query"
 					)
 				)
 			)
 
 			val collegePlayers: List<String> = try {
 				val completion: ChatCompletion = openAI.chatCompletion(chatCompletionRequest)
-				val orderPlayerList = completion.choices[0].message?.content.orEmpty()
+				val playerCSV = completion.choices[0].message?.content.orEmpty()
 
-				orderPlayerList
-					.split("\n")
-					.map {
-						it.trim()
-							.replaceFirst(Regex("^\\d+\\.\\s"), "")
-							.substringBefore(" (")
-							.substringBefore(" -")
-					}
+				playerCSV.split(",").map { it.trim() }
 			} catch (e: Exception) {
 				emptyList()
 			}

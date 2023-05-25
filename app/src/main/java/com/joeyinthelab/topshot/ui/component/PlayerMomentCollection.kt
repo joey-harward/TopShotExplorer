@@ -31,23 +31,23 @@ fun PlayerMomentCollection(
 ) {
 	val playersUiState by viewModel.playersUiState.collectAsStateWithLifecycle()
 
-	var collegeName by remember { mutableStateOf("") }
+	var query by remember { mutableStateOf("") }
 
 	Column(
 		modifier = Modifier.fillMaxSize()
 	) {
 		OutlinedTextField(
 			modifier = Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 10.dp, bottom = 16.dp),
-			label = { Text(text = "Enter College Name To Find Moments") },
-			value = collegeName,
+			label = { Text(text = "Search Player Moments") },
+			value = query,
 			singleLine = true,
 			onValueChange = {
-				collegeName = it
+				query = it
 				viewModel.resetPlayerState()
 			},
 			enabled = playersUiState != PlayersUiState.Loading,
 			trailingIcon = {
-				IconButton(onClick = { viewModel.getPlayersByCollege(collegeName) }){
+				IconButton(onClick = { viewModel.playerMomentSearch(query) }){
 					Icon(
 						imageVector = Icons.Filled.Search,
 						contentDescription = "Search"
@@ -59,7 +59,7 @@ fun PlayerMomentCollection(
 				keyboardType = KeyboardType.Text
 			),
 			keyboardActions = KeyboardActions(
-				onDone = { viewModel.getPlayersByCollege(collegeName) }
+				onDone = { viewModel.playerMomentSearch(query) }
 			),
 		)
 
@@ -94,7 +94,7 @@ fun PlayerMomentCollection(
 						horizontalAlignment = Alignment.CenterHorizontally
 					) {
 						Text(
-							text = "No NBA Players found from college: $collegeName",
+							text = "No NBA Players found that match that query",
 							textAlign = TextAlign.Center,
 							style = MaterialTheme.typography.titleMedium,
 						)
